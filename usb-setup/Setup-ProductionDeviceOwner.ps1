@@ -1,4 +1,4 @@
-param(
+﻿param(
     [string]$Serial = "",
     [string]$KisAgentApkPath = "",
     [string]$SeetrolAskApkPath = "",
