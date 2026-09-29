@@ -6,7 +6,7 @@ NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입
 - 대상 기기: NTP-10, Android 11 (실기기 1대 선행 검증 필수)
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
-- Android 내부 버전 코드: `6` (사용자 표시 버전은 `v1.0.0`)
+- Android 내부 버전 코드: `1` (사용자 표시 버전은 `v1.0.0`)
 
 ## 처음 설치한다면
 

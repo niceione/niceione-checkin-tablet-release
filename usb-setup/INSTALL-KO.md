@@ -3,14 +3,14 @@
 이 문서는 QR 프로비저닝을 사용할 수 없는 NTP-10을 Windows PC와 USB 케이블로 설정하는 전체 절차입니다. 공장 초기화부터 Device Owner 등록, 기기별 관리자 설정, 유지보수, KIS Agent 후설치, 자동 업데이트 및 장애 대응까지 설명합니다.
 
 - 공식 버전: `v1.0.0`
-- Android 내부 `versionCode`: `6`
+- Android 내부 `versionCode`: `1`
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
 - KIS Agent 패키지: `kr.co.kisvan.andagent`
 - 공식 배포: <https://github.com/niceione/niceione-checkin-tablet-release/releases/latest>
 - USB 설치 ZIP: <https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip>
 
-`versionCode`가 6인 이유는 현장 시험 장비가 이전 시험 빌드에서 사용자 승인 없이 공식 `v1.0.0`으로 업데이트될 수 있게 하기 위해서입니다. 사용자 화면과 APK 파일명에는 `v1.0.0`만 표시됩니다. 다음 공식 버전은 `versionName=1.0.1`, `versionCode=7` 이상으로 게시합니다.
+공식 첫 배포 버전은 `versionName=1.0.0`, `versionCode=1`입니다. 사용자 화면과 APK 파일명에는 `v1.0.0`만 표시됩니다. 다음 공식 버전은 `versionName=1.0.1`, `versionCode=2` 이상으로 게시합니다.
 
 > **한 대 선행 검증 필수:** NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner 허용 여부 및 KIS Agent 동작이 다를 수 있습니다. 실제 장비 한 대에서 이 문서의 시험을 모두 통과한 뒤 나머지 장비에 적용하십시오.
 
@@ -267,11 +267,11 @@ PIN을 잊으면 고객 화면에서 임의로 해제할 수 없습니다. 운�
 
 ### 10.2 다음 버전 게시 규칙
 
-공식 `v1.0.0`의 내부 `versionCode`는 6입니다. 다음 버전은 반드시 더 큰 내부 코드를 사용합니다.
+공식 `v1.0.0`의 내부 `versionCode`는 1입니다. 다음 버전은 반드시 더 큰 내부 코드를 사용합니다.
 
 ```powershell
 .\tools\release\Build-GitHubRelease.ps1 `
-  -VersionCode 7 `
+  -VersionCode 2 `
   -VersionName "1.0.1" `
   -Repository "niceione/niceione-checkin-tablet-release" `
   -ReleaseNotes "변경 내용" `
