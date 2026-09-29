@@ -9,13 +9,13 @@ NTP-10에서 Android Enterprise QR 등록 화면이 열리지 않을 때 사용�
 2026-09-29에 Android 11 기반 R10D 한 대에서 다음 항목을 확인했습니다.
 
 - USB ADB 인식과 Device Owner 등록
-- NiceIone v1.0.4 설치 및 기본 HOME 지정
+- NiceIone v1.0.0 공식 버전 설치 및 기본 HOME 지정
 - HOME·최근 앱 차단, 뒤로가기 시 앱 외부 이탈 방지
 - 재부팅 후 자동 실행과 Lock Task 자동 복구
 - 관리자 `앱 종료` 후 제조사 홈 화면 이동과 다른 앱·Android 설정 사용
 - NiceIone 앱 재실행 시 전용 HOME 및 Lock Task 복구
 - GitHub 최신 버전 확인과 1분 주기 반복 확인
-- v1.0.2 → v1.0.3 → v1.0.4 사용자 승인 없는 APK 자동 설치 및 앱 자동 재실행
+- 사전 시험 빌드 간 사용자 승인 없는 APK 자동 설치 및 앱 자동 재실행
 - 고객·관리자 화면 공통 상단 바의 현재 앱 버전 표시
 
 KIS Agent가 아직 설치되지 않아 실제 카드 승인·승인 취소만 미검증 상태입니다.
