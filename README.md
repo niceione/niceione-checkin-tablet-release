@@ -2,8 +2,8 @@
 
 NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입니다.
 
-- 최신 운영 버전: [`v1.0.1`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
-- 지원 기기: NTP-10, Android 11
+- 최신 운영 버전: [`v1.0.2`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
+- 대상 기기: NTP-10, Android 11 (실기기 1대 선행 검증 필수)
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
 
@@ -14,9 +14,11 @@ NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입
 3. 공장 초기화 후에도 KIS Agent 패키지 `kr.co.kisvan.andagent`가 남는지 확인합니다. Agent가 없다면 나머지 기기를 진행하지 말고 KIS Agent 무인 설치 방식을 먼저 준비합니다.
 4. NTP-10에서 QR 등록 화면이 열리지 않으면 아래 USB BAT 방식을 사용합니다.
 
+NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner 등록 허용 여부 및 KIS Agent 동작이 다를 수 있습니다. 여러 대를 작업하기 전에 반드시 실제 NTP-10 한 대에서 전 항목을 선행 검증하십시오.
+
 ## QR이 안 되는 NTP-10: USB BAT 설치
 
-1. [`niceione-tablet-usb-setup-v1.0.1.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.1/niceione-tablet-usb-setup-v1.0.1.zip)을 받아 압축을 풉니다.
+1. [`niceione-tablet-usb-setup-v1.0.2.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.2/niceione-tablet-usb-setup-v1.0.2.zip)을 받아 압축을 풉니다.
 2. KIS Agent가 태블릿에 없다면 KIS 제공 APK를 `kis-agent.apk` 이름으로 같은 폴더에 넣습니다.
 3. 태블릿을 공장 초기화하고 Google 계정을 추가하지 않은 채 초기 설정을 마칩니다.
 4. `설정 → 태블릿 정보 → 빌드 번호`를 7번 눌러 개발자 옵션을 켭니다.
@@ -38,10 +40,10 @@ BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Dev
 
 QR 프로비저닝을 지원하는 다른 태블릿에서만 사용합니다. 이 QR에는 Wi-Fi 정보가 없으므로 초기 설정 중 사용할 Wi-Fi를 직접 선택해야 합니다.
 
-![NiceIone Device Owner 설치 QR](device-owner/v1.0.0/niceione-device-owner-qr.png)
+![NiceIone Device Owner 설치 QR](device-owner/v1.0.2/niceione-device-owner-qr.png)
 
-- [QR 이미지 원본 다운로드](device-owner/v1.0.0/niceione-device-owner-qr.png)
-- [QR 데이터 확인](device-owner/v1.0.0/niceione-device-owner.json)
+- [QR 이미지 원본 다운로드](device-owner/v1.0.2/niceione-device-owner-qr.png)
+- [QR 데이터 확인](device-owner/v1.0.2/niceione-device-owner.json)
 
 ## 실제 태블릿 설치 순서
 
@@ -55,7 +57,7 @@ QR 프로비저닝을 지원하는 다른 태블릿에서만 사용합니다. �
 6. Android가 APK를 다운로드하고 체크섬을 검증한 뒤 NiceIone 앱을 Device Owner로 등록할 때까지 기다립니다.
 7. NiceIone 앱이 자동으로 시작되는지 확인합니다.
 
-첫 화면을 6번 눌러도 QR 등록 화면이 나오지 않으면 NTP-10 펌웨어가 Android Enterprise QR 프로비저닝을 지원하지 않는 것입니다. 이 경우 제조사 Device Owner/zero-touch 지원 또는 MDM이 필요합니다.
+첫 화면을 6번 눌러도 QR 등록 화면이 나오지 않으면 위의 USB BAT 설치 방식을 사용합니다.
 
 ### 2. 기기별 설정
 
@@ -97,7 +99,7 @@ Device Owner 등록이 끝난 뒤에는 사용자가 APK 설치를 허용할 필
 
 QR에는 다음 정보만 있습니다.
 
-- `v1.0.0` 운영 APK 공개 다운로드 주소
+- `v1.0.2` 운영 APK 공개 다운로드 주소
 - Device Owner 관리자 컴포넌트명
 - APK 변조 확인용 SHA-256 체크섬
 - 기존 Android 시스템 앱 유지 설정
@@ -106,7 +108,7 @@ Wi-Fi 비밀번호, GitHub 계정·토큰, 지점코드, 객실코드, 기기 ID
 
 ## 운영 주의사항
 
-- 이 QR은 `v1.0.0` APK의 체크섬과 연결되어 있으므로 `v1.0.0` Release의 APK를 교체하거나 삭제하지 않습니다.
+- 이 QR은 `v1.0.2` APK의 체크섬과 연결되어 있으므로 `v1.0.2` Release의 APK를 교체하거나 삭제하지 않습니다.
 - 이후 버전은 새로운 태그와 더 큰 `versionCode`로 게시합니다.
-- 신규 기기는 QR로 `v1.0.0`을 설치한 뒤 실행 중 최신 버전으로 자동 업데이트됩니다.
+- 신규 기기는 QR로 `v1.0.2`를 설치한 뒤 실행 중 최신 버전으로 자동 업데이트됩니다.
 - 문제가 있는 버전을 게시했을 때 Android는 낮은 `versionCode`로 자동 복귀하지 않습니다. 수정 버전은 반드시 더 큰 `versionCode`로 게시합니다.
