@@ -6,12 +6,35 @@ NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입
 - 대상 기기: NTP-10, Android 11 (실기기 1대 선행 검증 필수)
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
+- Android 내부 버전 코드: `6` (사용자 표시 버전은 `v1.0.0`)
+
+## 처음 설치한다면
+
+NTP-10은 QR 인식이 되지 않으므로 USB BAT 설치를 기본으로 사용합니다.
+
+1. [`niceione-tablet-usb-setup-v1.0.0.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip)을 받습니다.
+2. [NTP-10 전체 설치·운영 가이드](usb-setup/INSTALL-KO.md)를 처음부터 순서대로 진행합니다.
+3. 실제 장비 한 대에서 재부팅, HOME·뒤로가기, 관리자 앱 종료, 자동 복구 및 결제를 확인합니다.
+4. 한 대가 모두 통과한 뒤 나머지 장비를 한 대씩 반복 등록합니다.
+
+## 적용된 주요 기능
+
+- Device Owner와 Lock Task를 이용한 HOME·최근 앱 차단
+- 뒤로가기를 통한 앱 외부 이탈 방지
+- 재부팅 후 NiceIone 자동 실행 및 키오스크 복구
+- 관리자 `앱 종료` 후 제조사 홈에서 다른 앱과 Android 설정 사용
+- NiceIone 재실행 또는 재부팅 시 키오스크 자동 복구
+- 앱 시작 및 1분 주기 GitHub 버전 확인
+- 고객 미사용 1분 상태에서 사용자 승인 없는 APK 설치와 앱 재시작
+- APK SHA-256, 패키지명, 버전 및 서명 검증
+- 상단 상태 바에 `v1.0.0`, 인터넷 및 배터리 상태 표시
+- KIS 승인·취소 연결과 미완료 결제 복구 보호
 
 ## 설치 전에 반드시 확인
 
 1. Device Owner 최초 등록 전 필요한 기존 앱, 설정 및 자료를 백업합니다.
 2. 먼저 시험 기기 1대만 등록하고 결제·재부팅·키오스크 동작을 확인한 후 나머지 기기를 진행합니다.
-3. 공장 초기화 후에도 KIS Agent 패키지 `kr.co.kisvan.andagent`가 남는지 확인합니다. Agent가 없다면 나머지 기기를 진행하지 말고 KIS Agent 무인 설치 방식을 먼저 준비합니다.
+3. KIS Agent를 같이 설치하려면 APK를 `kis-agent.apk`로 준비합니다. Agent를 나중에 설치하려면 BAT에 `-SkipKisAgent` 옵션을 사용합니다.
 4. NTP-10에서 QR 등록 화면이 열리지 않으면 아래 USB BAT 방식을 사용합니다.
 
 NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner 등록 허용 여부 및 KIS Agent 동작이 다를 수 있습니다. 여러 대를 작업하기 전에 반드시 실제 NTP-10 한 대에서 전 항목을 선행 검증하십시오.
@@ -31,6 +54,12 @@ NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner �
 5. 개발자 옵션에서 `USB 디버깅`을 켜고 PC에 연결합니다.
 6. 태블릿의 USB 디버깅 허용 창에서 `이 컴퓨터에서 항상 허용`을 선택합니다.
 7. PC에서 `Setup-NiceIone-Tablet.bat`를 더블클릭합니다.
+
+KIS Agent를 나중에 설치할 때는 설치 폴더에서 터미널을 열고 다음과 같이 실행합니다.
+
+```powershell
+.\Setup-NiceIone-Tablet.bat -SkipKisAgent
+```
 
 BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Device Owner 등록, HOME·뒤로가기 제한, 자동 실행까지 처리하고 마지막 상태를 검증합니다.
 
