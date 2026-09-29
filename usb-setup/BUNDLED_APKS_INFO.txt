@@ -1,0 +1,17 @@
+NiceIone USB 설치 패키지에 아래 APK가 포함되어 있습니다.
+
+1. kis-agent.apk
+   - 원본: KIS-ANDAGT_29000075.apk
+   - 패키지: kr.co.kisvan.andagent
+   - 버전: 1075 (versionCode 75)
+   - SHA-256: 55e7b3035e2fb9349207b37b2ede31828a60bee208257f34d126b48a69e42fdb
+
+2. seetrol-ask.apk
+   - 원본: SeetrolAsk.apk
+   - 패키지: com.seetrol.ask
+   - 버전: 25.12.18 (versionCode 12)
+   - SHA-256: 15acaedecebc4d6922b765335dfc75c7a88a0c9d86ec977581f09917ebf82b18
+
+Setup-NiceIone-Tablet.bat를 실행하면 두 앱과 NiceIone이 함께 설치됩니다.
+KIS Agent를 생략하려면 -SkipKisAgent, SeetrolAsk를 생략하려면
+-SkipSeetrolAsk 옵션을 사용합니다.

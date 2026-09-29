@@ -1,8 +1,10 @@
 param(
     [string]$Serial = "",
     [string]$KisAgentApkPath = "",
+    [string]$SeetrolAskApkPath = "",
     [string]$AppApkPath = "",
-    [switch]$SkipKisAgent
+    [switch]$SkipKisAgent,
+    [switch]$SkipSeetrolAsk
 )
 
 $ErrorActionPreference = "Stop"
@@ -11,6 +13,7 @@ $ProgressPreference = "SilentlyContinue"
 
 $appPackage = "kr.co.niceione.checkintablet"
 $kisPackage = "kr.co.kisvan.andagent"
+$seetrolPackage = "com.seetrol.ask"
 $adminComponent = "$appPackage/$appPackage.NiceIoneDeviceAdminReceiver"
 $latestManifestUrl = "https://github.com/niceione/niceione-checkin-tablet-release/releases/latest/download/update.json"
 $platformToolsUrl = "https://dl.google.com/android/repository/platform-tools-latest-windows.zip"
@@ -79,6 +82,19 @@ function Test-PackageInstalled {
     param([Parameter(Mandatory = $true)][string]$PackageName)
     $result = Invoke-AdbCommand -CommandArguments @("shell", "pm", "path", $PackageName) -AllowFailure
     return (($result -join "`n") -match "package:")
+}
+
+function Grant-BundledAppAccess {
+    param([Parameter(Mandatory = $true)][string]$PackageName)
+    Invoke-AdbCommand -CommandArguments @(
+        "shell", "appops", "set", $PackageName, "SYSTEM_ALERT_WINDOW", "allow"
+    ) -AllowFailure | Out-Null
+    Invoke-AdbCommand -CommandArguments @(
+        "shell", "appops", "set", $PackageName, "MANAGE_EXTERNAL_STORAGE", "allow"
+    ) -AllowFailure | Out-Null
+    Invoke-AdbCommand -CommandArguments @(
+        "shell", "dumpsys", "deviceidle", "whitelist", "+$PackageName"
+    ) -AllowFailure | Out-Null
 }
 
 function Resolve-AppApk {
@@ -152,7 +168,7 @@ if (-not $alreadyOwner) {
     }
 }
 
-Write-Step "KIS Agent 확인 및 설치"
+Write-Step "KIS Agent와 SeetrolAsk 확인 및 설치"
 $kisInstalled = Test-PackageInstalled -PackageName $kisPackage
 if (-not $kisInstalled -and -not $SkipKisAgent) {
     if ([string]::IsNullOrWhiteSpace($KisAgentApkPath)) {
@@ -171,6 +187,32 @@ if (-not $kisInstalled -and -not $SkipKisAgent) {
     Write-Host "기존 KIS Agent 확인 완료"
 } else {
     Write-Warning "-SkipKisAgent가 지정되어 KIS Agent 확인을 건너뜁니다. 실결제는 동작하지 않습니다."
+}
+if (Test-PackageInstalled -PackageName $kisPackage) {
+    Grant-BundledAppAccess -PackageName $kisPackage
+}
+
+$seetrolInstalled = Test-PackageInstalled -PackageName $seetrolPackage
+if (-not $seetrolInstalled -and -not $SkipSeetrolAsk) {
+    if ([string]::IsNullOrWhiteSpace($SeetrolAskApkPath)) {
+        $SeetrolAskApkPath = Join-Path $PSScriptRoot "seetrol-ask.apk"
+    }
+    if (-not (Test-Path -LiteralPath $SeetrolAskApkPath)) {
+        throw "SeetrolAsk가 태블릿에 없습니다. 제공받은 APK를 이 BAT와 같은 폴더에 seetrol-ask.apk 이름으로 넣으세요."
+    }
+    $resolvedSeetrolApk = (Resolve-Path -LiteralPath $SeetrolAskApkPath).Path
+    Invoke-AdbCommand -CommandArguments @("install", "-r", "-g", $resolvedSeetrolApk) | Write-Host
+    if (-not (Test-PackageInstalled -PackageName $seetrolPackage)) {
+        throw "설치한 APK의 패키지가 $seetrolPackage 가 아닙니다. 올바른 SeetrolAsk APK인지 확인하세요."
+    }
+    Write-Host "SeetrolAsk 설치 완료"
+} elseif ($seetrolInstalled) {
+    Write-Host "기존 SeetrolAsk 확인 완료"
+} else {
+    Write-Warning "-SkipSeetrolAsk가 지정되어 SeetrolAsk 설치를 건너뜁니다."
+}
+if (Test-PackageInstalled -PackageName $seetrolPackage) {
+    Grant-BundledAppAccess -PackageName $seetrolPackage
 }
 
 Write-Step "최신 NiceIone 앱 설치"
@@ -217,6 +259,7 @@ Write-Host "설정 완료" -ForegroundColor Green
 Write-Host "- HOME/최근 앱/뒤로가기 제한: 적용"
 Write-Host "- 재부팅 후 자동 실행: 적용"
 Write-Host "- KIS Agent: $(if (Test-PackageInstalled -PackageName $kisPackage) { '설치 확인' } else { '건너뜀' })"
+Write-Host "- SeetrolAsk: $(if (Test-PackageInstalled -PackageName $seetrolPackage) { '설치 확인' } else { '건너뜀' })"
 Write-Host "- 승인/취소 결제: 앱 관리자 화면에서 실결제 시험 필요"
 Write-Host "- 앱 자체 자동 업데이트: 적용"
 Write-Host "- 관리자 앱 종료: 관리자 설정 우측 상단 '앱 종료'"

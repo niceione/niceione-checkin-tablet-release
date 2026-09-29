@@ -29,12 +29,13 @@ NTP-10은 QR 인식이 되지 않으므로 USB BAT 설치를 기본으로 사용
 - APK SHA-256, 패키지명, 버전 및 서명 검증
 - 상단 상태 바에 `v1.0.0`, 인터넷 및 배터리 상태 표시
 - KIS 승인·취소 연결과 미완료 결제 복구 보호
+- USB 설치 ZIP에 KIS Agent와 SeetrolAsk를 포함해 BAT 한 번으로 동시 설치
 
 ## 설치 전에 반드시 확인
 
 1. Device Owner 최초 등록 전 필요한 기존 앱, 설정 및 자료를 백업합니다.
 2. 먼저 시험 기기 1대만 등록하고 결제·재부팅·키오스크 동작을 확인한 후 나머지 기기를 진행합니다.
-3. KIS Agent를 같이 설치하려면 APK를 `kis-agent.apk`로 준비합니다. Agent를 나중에 설치하려면 BAT에 `-SkipKisAgent` 옵션을 사용합니다.
+3. KIS Agent와 SeetrolAsk APK는 ZIP에 포함되어 있습니다. 생략할 때만 `-SkipKisAgent` 또는 `-SkipSeetrolAsk` 옵션을 사용합니다.
 4. NTP-10에서 QR 등록 화면이 열리지 않으면 아래 USB BAT 방식을 사용합니다.
 
 NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner 등록 허용 여부 및 KIS Agent 동작이 다를 수 있습니다. 여러 대를 작업하기 전에 반드시 실제 NTP-10 한 대에서 전 항목을 선행 검증하십시오.
@@ -43,12 +44,12 @@ NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner �
 
 2026-09-29에 Android 11 기반 R10D 한 대에서 USB Device Owner 등록, HOME·최근 앱·뒤로가기 제한, 재부팅 자동 실행, GitHub 최신 버전의 1분 주기 확인까지 검증했습니다.
 
-관리자 `앱 종료` 후 제조사 홈으로 이동해 다른 앱과 Android 설정을 사용하는 동작, NiceIone 재실행 시 키오스크 자동 복구, 사전 시험 빌드 간 사용자 승인 없는 자동 설치·재시작도 실기기에서 확인했습니다. 첫 공식 버전 v1.0.0은 모든 앱 화면의 공통 상단 바에 `v1.0.0`을 표시합니다. KIS Agent와 실카드 승인·취소만 아직 미검증입니다.
+관리자 `앱 종료` 후 제조사 홈으로 이동해 다른 앱과 Android 설정을 사용하는 동작, NiceIone 재실행 시 키오스크 자동 복구, 사전 시험 빌드 간 사용자 승인 없는 자동 설치·재시작도 실기기에서 확인했습니다. 첫 공식 버전 v1.0.0은 모든 앱 화면의 공통 상단 바에 `v1.0.0`을 표시합니다. KIS Agent와 SeetrolAsk APK의 패키지·버전·서명·SHA-256은 검증했으며, 공장초기화 후 실제 설치, 실카드 승인·취소 및 원격지원 연결은 아직 확인이 필요합니다.
 
 ## QR이 안 되는 NTP-10: USB BAT 설치
 
 1. [`niceione-tablet-usb-setup-v1.0.0.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip)을 받아 압축을 풉니다.
-2. KIS Agent가 태블릿에 없다면 KIS 제공 APK를 `kis-agent.apk` 이름으로 같은 폴더에 넣습니다.
+2. 압축을 푼 폴더에 `kis-agent.apk`와 `seetrol-ask.apk`가 포함되어 있는지 확인합니다.
 3. 태블릿을 공장 초기화하고 Google 계정을 추가하지 않은 채 초기 설정을 마칩니다.
 4. `설정 → 태블릿 정보 → 빌드 번호`를 7번 눌러 개발자 옵션을 켭니다.
 5. 개발자 옵션에서 `USB 디버깅`을 켜고 PC에 연결합니다.
@@ -61,7 +62,13 @@ KIS Agent를 나중에 설치할 때는 설치 폴더에서 터미널을 열고 
 .\Setup-NiceIone-Tablet.bat -SkipKisAgent
 ```
 
-BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Device Owner 등록, HOME·뒤로가기 제한, 자동 실행까지 처리하고 마지막 상태를 검증합니다.
+BAT가 ADB 준비, KIS Agent·SeetrolAsk 설치, 최신 NiceIone APK 다운로드·해시 검증, Device Owner 등록, HOME·뒤로가기 제한, 자동 실행까지 처리하고 마지막 상태를 검증합니다.
+
+포함된 보조 앱은 다음과 같습니다.
+
+- KIS Agent `1075` (`versionCode 75`), 패키지 `kr.co.kisvan.andagent`
+- SeetrolAsk `25.12.18` (`versionCode 12`), 패키지 `com.seetrol.ask`
+- 정확한 SHA-256은 ZIP 안의 `BUNDLED_APKS_INFO.txt`에서 확인할 수 있습니다.
 
 - [USB 설치 전체 설명](usb-setup/INSTALL-KO.md)
 - [BAT 원본](usb-setup/Setup-NiceIone-Tablet.bat)
@@ -114,6 +121,7 @@ QR 프로비저닝을 지원하는 다른 태블릿에서만 사용합니다. �
 - 홈·뒤로 가기로 고객이 앱을 이탈할 수 없다.
 - 전원을 다시 켜면 앱이 자동으로 실행된다.
 - KIS Agent가 설치되어 있고 실제 승인·취소가 정상이다.
+- SeetrolAsk가 설치되어 있고 원격지원 연결이 정상이다.
 - 지점코드, 기기 ID, 객실코드가 해당 객실과 일치한다.
 
 ### 4. 나머지 기기 반복

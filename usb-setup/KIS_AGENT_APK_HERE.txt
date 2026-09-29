@@ -1,6 +1,0 @@
-KIS에서 제공받은 Android Agent APK가 태블릿에 설치되어 있지 않다면,
-APK 파일명을 kis-agent.apk로 변경하여 이 폴더에 넣으세요.
-
-필수 패키지명: kr.co.kisvan.andagent
-
-KIS Agent가 태블릿에 이미 설치되어 있으면 이 파일만 두고 BAT를 실행해도 됩니다.
