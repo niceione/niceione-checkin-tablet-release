@@ -24,6 +24,7 @@
 - Android Lock Task 모드를 사용해 고객 화면에서 HOME과 최근 앱 버튼을 차단합니다.
 - 뒤로가기는 앱 밖으로 나가지 않고 NiceIone 내부의 이전 화면 또는 첫 화면으로만 이동합니다.
 - KIS Agent 패키지는 결제 화면 전환을 위해 Lock Task 허용 목록에 포함됩니다.
+- SeetrolAsk 패키지도 원격지원 동작을 위해 Lock Task 허용 목록에 포함됩니다.
 - Device Owner는 일반 앱 관리자 권한보다 강한 전용 단말 권한입니다. 완전히 제거하려면 공장 초기화가 필요합니다.
 
 ### 1.2 재부팅 후 자동 실행
@@ -110,9 +111,9 @@ KIS Agent와 SeetrolAsk APK의 패키지명, 버전, 서명 및 SHA-256을 확�
 - 공장 초기화할 NTP-10
 - `niceione-tablet-usb-setup-v1.0.0.zip`
 
-KIS Agent와 SeetrolAsk APK는 USB 설치 ZIP 안에 이미 포함되어 있으므로 별도로 준비할 필요가 없습니다.
+KIS Agent와 SeetrolAsk APK는 USB 설치 ZIP 안에 이미 포함되어 있으므로 별도로 준비할 필요가 없습니다. 두 외부 APK를 보호하기 위해 ZIP은 AES-256 비밀번호로 암호화되어 있습니다. Windows 기본 압축 풀기 대신 [7-Zip](https://www.7-zip.org/)을 사용하고, 비밀번호는 GitHub에 적지 말고 배포 관리자에게 별도로 전달받습니다.
 
-ZIP을 내려받아 짧은 영문 경로에 압축을 풉니다. 예시는 다음과 같습니다.
+ZIP을 내려받아 7-Zip으로 짧은 영문 경로에 압축을 풉니다. 예시는 다음과 같습니다.
 
 ```text
 C:\NiceIone-Setup\
@@ -412,3 +413,5 @@ Wi-Fi 비밀번호, GitHub 계정, 토큰, 지점코드, 객실코드, 기기 ID
 | `niceione-device-owner.json` | QR 원본 프로비저닝 데이터 |
 
 운영 릴리스의 APK, `update.json` 및 QR은 서로의 버전과 SHA-256이 연결되어 있습니다. 릴리스 자산 일부만 임의로 교체하거나 삭제하지 않습니다.
+
+USB 설치 ZIP 비밀번호는 공개 저장소, 설치 문서 및 ZIP 내부에 기록하지 않습니다. 비밀번호가 외부에 노출되면 새 비밀번호로 ZIP을 다시 암호화해 교체합니다. NiceIone APK와 `update.json`은 태블릿 자동 업데이트를 위해 공개 상태를 유지합니다.

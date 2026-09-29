@@ -13,9 +13,10 @@ NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입
 NTP-10은 QR 인식이 되지 않으므로 USB BAT 설치를 기본으로 사용합니다.
 
 1. [`niceione-tablet-usb-setup-v1.0.0.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip)을 받습니다.
-2. [NTP-10 전체 설치·운영 가이드](usb-setup/INSTALL-KO.md)를 처음부터 순서대로 진행합니다.
-3. 실제 장비 한 대에서 재부팅, HOME·뒤로가기, 관리자 앱 종료, 자동 복구 및 결제를 확인합니다.
-4. 한 대가 모두 통과한 뒤 나머지 장비를 한 대씩 반복 등록합니다.
+2. 외부 APK 보호를 위해 ZIP은 AES-256으로 암호화되어 있습니다. 7-Zip과 배포 관리자가 별도로 전달한 비밀번호로 압축을 풉니다.
+3. [NTP-10 전체 설치·운영 가이드](usb-setup/INSTALL-KO.md)를 처음부터 순서대로 진행합니다.
+4. 실제 장비 한 대에서 재부팅, HOME·뒤로가기, 관리자 앱 종료, 자동 복구 및 결제를 확인합니다.
+5. 한 대가 모두 통과한 뒤 나머지 장비를 한 대씩 반복 등록합니다.
 
 ## 적용된 주요 기능
 
@@ -30,6 +31,7 @@ NTP-10은 QR 인식이 되지 않으므로 USB BAT 설치를 기본으로 사용
 - 상단 상태 바에 `v1.0.0`, 인터넷 및 배터리 상태 표시
 - KIS 승인·취소 연결과 미완료 결제 복구 보호
 - USB 설치 ZIP에 KIS Agent와 SeetrolAsk를 포함해 BAT 한 번으로 동시 설치
+- KIS Agent와 SeetrolAsk를 Device Owner Lock Task 허용 목록에 포함
 
 ## 설치 전에 반드시 확인
 
@@ -48,7 +50,7 @@ NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner �
 
 ## QR이 안 되는 NTP-10: USB BAT 설치
 
-1. [`niceione-tablet-usb-setup-v1.0.0.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip)을 받아 압축을 풉니다.
+1. [`niceione-tablet-usb-setup-v1.0.0.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.0/niceione-tablet-usb-setup-v1.0.0.zip)을 받아 7-Zip과 별도로 전달받은 비밀번호로 압축을 풉니다.
 2. 압축을 푼 폴더에 `kis-agent.apk`와 `seetrol-ask.apk`가 포함되어 있는지 확인합니다.
 3. 태블릿을 공장 초기화하고 Google 계정을 추가하지 않은 채 초기 설정을 마칩니다.
 4. `설정 → 태블릿 정보 → 빌드 번호`를 7번 눌러 개발자 옵션을 켭니다.
@@ -69,6 +71,8 @@ BAT가 ADB 준비, KIS Agent·SeetrolAsk 설치, 최신 NiceIone APK 다운로�
 - KIS Agent `1075` (`versionCode 75`), 패키지 `kr.co.kisvan.andagent`
 - SeetrolAsk `25.12.18` (`versionCode 12`), 패키지 `com.seetrol.ask`
 - 정확한 SHA-256은 ZIP 안의 `BUNDLED_APKS_INFO.txt`에서 확인할 수 있습니다.
+
+ZIP 비밀번호는 GitHub, 공개 문서 또는 ZIP 안에 저장하지 않습니다. NiceIone APK와 `update.json`만 무인 자동 업데이트를 위해 공개하고, KIS Agent와 SeetrolAsk는 암호화된 ZIP 안에서만 배포합니다.
 
 - [USB 설치 전체 설명](usb-setup/INSTALL-KO.md)
 - [BAT 원본](usb-setup/Setup-NiceIone-Tablet.bat)
