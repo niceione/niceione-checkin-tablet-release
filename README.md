@@ -2,7 +2,7 @@
 
 NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입니다.
 
-- 최신 운영 버전: [`v1.0.2`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
+- 최신 운영 버전: [`v1.0.3`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
 - 대상 기기: NTP-10, Android 11 (실기기 1대 선행 검증 필수)
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
@@ -18,13 +18,13 @@ NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner �
 
 ## 실기기 검증 현황
 
-2026-09-29에 Android 11 기반 R10D 한 대에서 USB Device Owner 등록, HOME·최근 앱·뒤로가기 제한, 재부팅 자동 실행, 관리자 `앱 종료`와 재실행 복구, GitHub 최신 버전의 1분 주기 확인까지 검증했습니다.
+2026-09-29에 Android 11 기반 R10D 한 대에서 USB Device Owner 등록, HOME·최근 앱·뒤로가기 제한, 재부팅 자동 실행, GitHub 최신 버전의 1분 주기 확인까지 검증했습니다.
 
-KIS Agent와 실카드 승인·취소는 아직 미검증입니다. v1.0.2보다 높은 운영 버전도 아직 없으므로 새 APK의 무인 설치·재시작 전체 과정은 다음 버전 게시 시 추가 검증합니다.
+관리자 `앱 종료` 후 제조사 홈으로 이동해 다른 앱과 Android 설정을 사용하는 동작, NiceIone 재실행 시 키오스크 자동 복구, v1.0.2에서 v1.0.3으로 사용자 승인 없는 자동 설치·재시작도 실기기에서 확인했습니다. KIS Agent와 실카드 승인·취소만 아직 미검증입니다.
 
 ## QR이 안 되는 NTP-10: USB BAT 설치
 
-1. [`niceione-tablet-usb-setup-v1.0.2.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.2/niceione-tablet-usb-setup-v1.0.2.zip)을 받아 압축을 풉니다.
+1. [`niceione-tablet-usb-setup-v1.0.3.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.3/niceione-tablet-usb-setup-v1.0.3.zip)을 받아 압축을 풉니다.
 2. KIS Agent가 태블릿에 없다면 KIS 제공 APK를 `kis-agent.apk` 이름으로 같은 폴더에 넣습니다.
 3. 태블릿을 공장 초기화하고 Google 계정을 추가하지 않은 채 초기 설정을 마칩니다.
 4. `설정 → 태블릿 정보 → 빌드 번호`를 7번 눌러 개발자 옵션을 켭니다.
@@ -38,7 +38,7 @@ BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Dev
 - [BAT 원본](usb-setup/Setup-NiceIone-Tablet.bat)
 - [PowerShell 원본](usb-setup/Setup-ProductionDeviceOwner.ps1)
 
-관리자 설정 우측 상단 `앱 종료`를 누르면 Lock Task를 일시 해제하고 Android 설정으로 이동합니다. NiceIone 앱을 다시 실행하거나 기기를 재부팅하면 키오스크 정책이 자동 복구됩니다.
+관리자 설정 우측 상단 `앱 종료`를 누르면 Lock Task를 일시 해제하고 제조사 홈 화면으로 이동합니다. 다른 앱과 Android 설정을 사용할 수 있으며, NiceIone 앱을 다시 실행하거나 기기를 재부팅하면 키오스크 정책이 자동 복구됩니다.
 
 ## Device Owner 설치 QR
 
@@ -46,10 +46,10 @@ BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Dev
 
 QR 프로비저닝을 지원하는 다른 태블릿에서만 사용합니다. 이 QR에는 Wi-Fi 정보가 없으므로 초기 설정 중 사용할 Wi-Fi를 직접 선택해야 합니다.
 
-![NiceIone Device Owner 설치 QR](device-owner/v1.0.2/niceione-device-owner-qr.png)
+![NiceIone Device Owner 설치 QR](device-owner/v1.0.3/niceione-device-owner-qr.png)
 
-- [QR 이미지 원본 다운로드](device-owner/v1.0.2/niceione-device-owner-qr.png)
-- [QR 데이터 확인](device-owner/v1.0.2/niceione-device-owner.json)
+- [QR 이미지 원본 다운로드](device-owner/v1.0.3/niceione-device-owner-qr.png)
+- [QR 데이터 확인](device-owner/v1.0.3/niceione-device-owner.json)
 
 ## 실제 태블릿 설치 순서
 
@@ -105,7 +105,7 @@ Device Owner 등록이 끝난 뒤에는 사용자가 APK 설치를 허용할 필
 
 QR에는 다음 정보만 있습니다.
 
-- `v1.0.2` 운영 APK 공개 다운로드 주소
+- `v1.0.3` 운영 APK 공개 다운로드 주소
 - Device Owner 관리자 컴포넌트명
 - APK 변조 확인용 SHA-256 체크섬
 - 기존 Android 시스템 앱 유지 설정
@@ -114,7 +114,7 @@ Wi-Fi 비밀번호, GitHub 계정·토큰, 지점코드, 객실코드, 기기 ID
 
 ## 운영 주의사항
 
-- 이 QR은 `v1.0.2` APK의 체크섬과 연결되어 있으므로 `v1.0.2` Release의 APK를 교체하거나 삭제하지 않습니다.
+- 이 QR은 `v1.0.3` APK의 체크섬과 연결되어 있으므로 `v1.0.3` Release의 APK를 교체하거나 삭제하지 않습니다.
 - 이후 버전은 새로운 태그와 더 큰 `versionCode`로 게시합니다.
-- 신규 기기는 QR로 `v1.0.2`를 설치한 뒤 실행 중 최신 버전으로 자동 업데이트됩니다.
+- 신규 기기는 QR로 `v1.0.3`을 설치한 뒤 실행 중 최신 버전으로 자동 업데이트됩니다.
 - 문제가 있는 버전을 게시했을 때 Android는 낮은 `versionCode`로 자동 복귀하지 않습니다. 수정 버전은 반드시 더 큰 `versionCode`로 게시합니다.
