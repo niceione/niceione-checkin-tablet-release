@@ -16,6 +16,12 @@ NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입
 
 NTP-10은 출고 시기와 펌웨어에 따라 USB 드라이버, Device Owner 등록 허용 여부 및 KIS Agent 동작이 다를 수 있습니다. 여러 대를 작업하기 전에 반드시 실제 NTP-10 한 대에서 전 항목을 선행 검증하십시오.
 
+## 실기기 검증 현황
+
+2026-09-29에 Android 11 기반 R10D 한 대에서 USB Device Owner 등록, HOME·최근 앱·뒤로가기 제한, 재부팅 자동 실행, 관리자 `앱 종료`와 재실행 복구, GitHub 최신 버전의 1분 주기 확인까지 검증했습니다.
+
+KIS Agent와 실카드 승인·취소는 아직 미검증입니다. v1.0.2보다 높은 운영 버전도 아직 없으므로 새 APK의 무인 설치·재시작 전체 과정은 다음 버전 게시 시 추가 검증합니다.
+
 ## QR이 안 되는 NTP-10: USB BAT 설치
 
 1. [`niceione-tablet-usb-setup-v1.0.2.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.2/niceione-tablet-usb-setup-v1.0.2.zip)을 받아 압축을 풉니다.
