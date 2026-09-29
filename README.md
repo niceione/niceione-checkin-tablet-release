@@ -2,11 +2,11 @@
 
 NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입니다.
 
-- 최신 운영 버전: [`v1.0.0`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
+- 최신 자동 업데이트 시험 버전: [`v1.0.1`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest) (`versionCode 2`)
+- USB 최초 설치 버전: `v1.0.0` (`versionCode 1`)
 - 대상 기기: NTP-10, Android 11 (실기기 1대 선행 검증 필수)
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
-- Android 내부 버전 코드: `1` (사용자 표시 버전은 `v1.0.0`)
 
 ## 처음 설치한다면
 
