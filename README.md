@@ -2,21 +2,41 @@
 
 NiceIone 객실 체크인 전용 Android 태블릿의 공개 배포 저장소입니다.
 
-- 최신 운영 버전: [`v1.0.0`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
+- 최신 운영 버전: [`v1.0.1`](https://github.com/niceione/niceione-checkin-tablet-release/releases/latest)
 - 지원 기기: NTP-10, Android 11
 - 앱 패키지: `kr.co.niceione.checkintablet`
 - Device Owner 관리자: `kr.co.niceione.checkintablet.NiceIoneDeviceAdminReceiver`
 
 ## 설치 전에 반드시 확인
 
-1. Device Owner 최초 등록에는 **공장 초기화가 반드시 필요**합니다. 태블릿의 기존 앱, 설정 및 자료가 삭제됩니다.
+1. Device Owner 최초 등록 전 필요한 기존 앱, 설정 및 자료를 백업합니다.
 2. 먼저 시험 기기 1대만 등록하고 결제·재부팅·키오스크 동작을 확인한 후 나머지 기기를 진행합니다.
 3. 공장 초기화 후에도 KIS Agent 패키지 `kr.co.kisvan.andagent`가 남는지 확인합니다. Agent가 없다면 나머지 기기를 진행하지 말고 KIS Agent 무인 설치 방식을 먼저 준비합니다.
-4. 아래 QR에는 Wi-Fi 정보가 없습니다. 초기 설정 중 사용할 Wi-Fi를 직접 선택해야 합니다.
+4. NTP-10에서 QR 등록 화면이 열리지 않으면 아래 USB BAT 방식을 사용합니다.
+
+## QR이 안 되는 NTP-10: USB BAT 설치
+
+1. [`niceione-tablet-usb-setup-v1.0.1.zip`](https://github.com/niceione/niceione-checkin-tablet-release/releases/download/v1.0.1/niceione-tablet-usb-setup-v1.0.1.zip)을 받아 압축을 풉니다.
+2. KIS Agent가 태블릿에 없다면 KIS 제공 APK를 `kis-agent.apk` 이름으로 같은 폴더에 넣습니다.
+3. 태블릿을 공장 초기화하고 Google 계정을 추가하지 않은 채 초기 설정을 마칩니다.
+4. `설정 → 태블릿 정보 → 빌드 번호`를 7번 눌러 개발자 옵션을 켭니다.
+5. 개발자 옵션에서 `USB 디버깅`을 켜고 PC에 연결합니다.
+6. 태블릿의 USB 디버깅 허용 창에서 `이 컴퓨터에서 항상 허용`을 선택합니다.
+7. PC에서 `Setup-NiceIone-Tablet.bat`를 더블클릭합니다.
+
+BAT가 ADB 준비, KIS Agent 확인, 최신 APK 다운로드·해시 검증, Device Owner 등록, HOME·뒤로가기 제한, 자동 실행까지 처리하고 마지막 상태를 검증합니다.
+
+- [USB 설치 전체 설명](usb-setup/INSTALL-KO.md)
+- [BAT 원본](usb-setup/Setup-NiceIone-Tablet.bat)
+- [PowerShell 원본](usb-setup/Setup-ProductionDeviceOwner.ps1)
+
+관리자 설정 우측 상단 `앱 종료`를 누르면 Lock Task를 일시 해제하고 Android 설정으로 이동합니다. NiceIone 앱을 다시 실행하거나 기기를 재부팅하면 키오스크 정책이 자동 복구됩니다.
 
 ## Device Owner 설치 QR
 
 아래 QR 하나를 신규 태블릿에 계속 재사용할 수 있습니다.
+
+QR 프로비저닝을 지원하는 다른 태블릿에서만 사용합니다. 이 QR에는 Wi-Fi 정보가 없으므로 초기 설정 중 사용할 Wi-Fi를 직접 선택해야 합니다.
 
 ![NiceIone Device Owner 설치 QR](device-owner/v1.0.0/niceione-device-owner-qr.png)
 
